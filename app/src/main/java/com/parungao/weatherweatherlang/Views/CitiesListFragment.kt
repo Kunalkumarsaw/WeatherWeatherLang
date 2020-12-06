@@ -2,10 +2,10 @@ package com.parungao.weatherweatherlang.Views
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.GestureDetectorCompat
 import androidx.lifecycle.ViewModelProviders
 import com.parungao.weatherweatherlang.R
 import com.parungao.weatherweatherlang.Utilities.InjectorUtils
@@ -16,11 +16,13 @@ import com.parungao.weatherweatherlang.Adapters.WeatherAdapter
 import kotlinx.android.synthetic.main.fragment_cities_list.*
 
 class CitiesListFragment : Fragment() {
+
     companion object {
         fun newInstance(): CitiesListFragment {
             return CitiesListFragment()
         }
     }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -29,8 +31,10 @@ class CitiesListFragment : Fragment() {
             false)
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeUi()
         initializeObservers()
     }
@@ -43,10 +47,19 @@ class CitiesListFragment : Fragment() {
     private fun initializeObservers(){
         val factory = InjectorUtils.provideWeatherViewModelFactory()
         val viewModel = ViewModelProviders.of(this , factory).get(WeatherViewModel::class.java)
+
         viewModel.getWeather().observe(this, Observer { weatherAndCitiesObject ->
             recyclerView.adapter = WeatherAdapter(activity as Context, weatherAndCitiesObject.list)
+            spinner.visibility = View.GONE
         })
+
+        viewModel.getError().observe(this, Observer { errorMsg ->
+            spinner.visibility = View.GONE
+            Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
+        })
+
         refreshButton.setOnClickListener{
+            spinner.visibility = View.VISIBLE
             viewModel.callOpenWeatherData()
         }
         viewModel.callOpenWeatherData()

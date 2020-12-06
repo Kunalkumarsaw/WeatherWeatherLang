@@ -5,6 +5,10 @@ class WeatherRepository private constructor(private val weatherDao: FakeWeatherD
         weatherDao.updateWeather(weather)
     }
     fun getWeather() = weatherDao.getWeather()
+    fun setError(errorValue: String){
+        weatherDao.setError(errorValue)
+    }
+    fun getError() = weatherDao.getError()
     companion object {
         @Volatile private var instance: WeatherRepository? = null
         fun getInstance(weatherDao: FakeWeatherDao) = instance ?: synchronized(lock = this) {
