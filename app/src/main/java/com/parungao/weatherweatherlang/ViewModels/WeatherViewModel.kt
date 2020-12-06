@@ -25,7 +25,8 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository ) : View
     fun callOpenWeatherData(){
         val getWeatherService: GetWeatherServices = NetworkServiceBuilder.buildService(
             GetWeatherServices::class.java)
-        val requestCall: Call<WeatherModel> =  getWeatherService.getWeatherAndCitiesList()
+        val map : Map<String, String> = mapOf("appid" to "a7d39c34549f2a5dcc4a03dbdd6c51ba", "id" to "1701668,3067696,1835848")
+        val requestCall: Call<WeatherModel> =  getWeatherService.getWeatherAndCitiesList(map)
         requestCall.enqueue(object : Callback<WeatherModel> {
             override fun onResponse(
                 call: Call<WeatherModel>,
@@ -44,10 +45,12 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository ) : View
             }
         })
     }
-    fun callOpenWeatherForCitiesData(){
+    fun callOpenWeatherForCitiesData(id : String){
         val getWeatherService: GetWeatherOfCityServices = NetworkServiceBuilder.buildService(
             GetWeatherOfCityServices::class.java)
-        val requestCall: Call<WeatherData> =  getWeatherService.getWeatherOfCityServicesObject()
+        val map : Map<String, String> = mapOf("appid" to "a7d39c34549f2a5dcc4a03dbdd6c51ba", "id" to id)
+
+        val requestCall: Call<WeatherData> =  getWeatherService.getWeatherOfCityServicesObject(map)
         requestCall.enqueue(object : Callback<WeatherData> {
             override fun onResponse(
                 call: Call<WeatherData>,

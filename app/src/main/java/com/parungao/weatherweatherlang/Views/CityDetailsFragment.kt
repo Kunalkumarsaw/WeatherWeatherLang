@@ -76,10 +76,8 @@ class CityDetailsFragment : Fragment() {
                     (context as MainActivity).favoritesList.remove(weatherAndCitiesObject.name)
                 }
             }
-
         })
-
-        viewModel.callOpenWeatherForCitiesData()
+        viewModel.callOpenWeatherForCitiesData(weather.id.toString())
 
     }
 }

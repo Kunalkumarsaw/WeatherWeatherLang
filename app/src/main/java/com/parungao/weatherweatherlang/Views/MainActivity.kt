@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_cities_list.*
 class MainActivity : AppCompatActivity() {
 
     var favoritesList: MutableList<String> = ArrayList()
+    lateinit var city : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

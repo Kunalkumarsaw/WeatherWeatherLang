@@ -4,14 +4,18 @@ import com.parungao.weatherweatherlang.Models.WeatherData
 import com.parungao.weatherweatherlang.Models.WeatherModel
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface GetWeatherServices {
-    @GET("data/2.5/group?id=1701668,3067696,1835848&appid=a7d39c34549f2a5dcc4a03dbdd6c51ba")
-    fun getWeatherAndCitiesList(): Call<WeatherModel>
+    @GET("data/2.5/group")
+    fun getWeatherAndCitiesList(@QueryMap() map: Map<String, String>): Call<WeatherModel>
 
 }
 
 interface GetWeatherOfCityServices {
-    @GET("data/2.5/weather?id=1701668&appid=a7d39c34549f2a5dcc4a03dbdd6c51ba")
-    fun getWeatherOfCityServicesObject(): Call<WeatherData>
+    val city : String
+
+    @GET("data/2.5/weather")
+    fun getWeatherOfCityServicesObject(@QueryMap() map: Map<String, String> ): Call<WeatherData>
 }
