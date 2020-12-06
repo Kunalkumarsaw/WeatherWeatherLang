@@ -2,8 +2,10 @@ package com.parungao.weatherweatherlang.ViewModels
 
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.parungao.weatherweatherlang.Models.WeatherData
 import com.parungao.weatherweatherlang.Models.WeatherModel
 import com.parungao.weatherweatherlang.Models.WeatherRepository
+import com.parungao.weatherweatherlang.Utilities.GetWeatherOfCityServices
 import com.parungao.weatherweatherlang.Utilities.GetWeatherServices
 import com.parungao.weatherweatherlang.Utilities.NetworkServiceBuilder
 import org.json.JSONObject
@@ -17,6 +19,8 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository ) : View
     fun updateWeather(weather: WeatherModel) = weatherRepository.updateWeather(weather)
     fun setError(errorValue: String) = weatherRepository.setError(errorValue)
     fun getError() = weatherRepository.getError()
+    fun setCityObject(cityObject: WeatherData) = weatherRepository.setCityObject(cityObject)
+    fun getCityObject() = weatherRepository.getCityObject()
 
     fun callOpenWeatherData(){
         val getWeatherService: GetWeatherServices = NetworkServiceBuilder.buildService(
@@ -36,6 +40,28 @@ class WeatherViewModel(private val weatherRepository: WeatherRepository ) : View
                 }
             }
             override fun onFailure(call: Call<WeatherModel>, t: Throwable) {
+                setError(t.toString())
+            }
+        })
+    }
+    fun callOpenWeatherForCitiesData(){
+        val getWeatherService: GetWeatherOfCityServices = NetworkServiceBuilder.buildService(
+            GetWeatherOfCityServices::class.java)
+        val requestCall: Call<WeatherData> =  getWeatherService.getWeatherOfCityServicesObject()
+        requestCall.enqueue(object : Callback<WeatherData> {
+            override fun onResponse(
+                call: Call<WeatherData>,
+                response: Response<WeatherData>
+            ) {
+                if (response.isSuccessful){
+                    val weatherAndCitiesObject: WeatherData = response.body()!!
+                    setCityObject(weatherAndCitiesObject)
+                }else{
+                    val jObjError = JSONObject(response.errorBody()!!.string())
+                    setError(jObjError.toString())
+                }
+            }
+            override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                 setError(t.toString())
             }
         })

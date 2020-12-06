@@ -47,21 +47,14 @@ class CitiesListFragment : Fragment() {
     private fun initializeObservers(){
         val factory = InjectorUtils.provideWeatherViewModelFactory()
         val viewModel = ViewModelProviders.of(this , factory).get(WeatherViewModel::class.java)
-
         viewModel.getWeather().observe(this, Observer { weatherAndCitiesObject ->
             recyclerView.adapter = WeatherAdapter(activity as Context, weatherAndCitiesObject.list)
             spinner.visibility = View.GONE
         })
-
         viewModel.getError().observe(this, Observer { errorMsg ->
             spinner.visibility = View.GONE
             Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show();
         })
-
-        refreshButton.setOnClickListener{
-            spinner.visibility = View.VISIBLE
-            viewModel.callOpenWeatherData()
-        }
         viewModel.callOpenWeatherData()
     }
 }

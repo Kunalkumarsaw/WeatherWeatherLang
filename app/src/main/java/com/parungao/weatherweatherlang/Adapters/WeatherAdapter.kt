@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.parungao.weatherweatherlang.Models.WeatherData
 import com.parungao.weatherweatherlang.R
+import com.parungao.weatherweatherlang.Utilities.InjectorUtils
+import com.parungao.weatherweatherlang.ViewModels.WeatherViewModel
 import com.parungao.weatherweatherlang.Views.MainActivity
 import kotlinx.android.synthetic.main.city_item.view.*
 import kotlinx.android.synthetic.main.city_item.view.cityTxt
@@ -53,7 +56,6 @@ class WeatherAdapter(val context: Context, val list: List<WeatherData>) : Recycl
                 }else{
                 itemView.imageView.visibility = View.INVISIBLE
             }
-
 
             itemView.cityTxt.text = "${weather!!.name}"
             itemView.tempTxt.text = "${df.format(temperature)}°C"

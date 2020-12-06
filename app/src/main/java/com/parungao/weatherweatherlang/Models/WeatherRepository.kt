@@ -5,6 +5,13 @@ class WeatherRepository private constructor(private val weatherDao: FakeWeatherD
         weatherDao.updateWeather(weather)
     }
     fun getWeather() = weatherDao.getWeather()
+
+    fun setCityObject(cityObject: WeatherData){
+        weatherDao.setCityObject(cityObject)
+    }
+    fun getCityObject() = weatherDao.getCityObject()
+
+
     fun setError(errorValue: String){
         weatherDao.setError(errorValue)
     }
