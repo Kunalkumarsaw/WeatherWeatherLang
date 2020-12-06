@@ -1,23 +1,17 @@
 package com.parungao.weatherweatherlang.Views
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import com.parungao.weatherweatherlang.Adapters.WeatherAdapter
 import com.parungao.weatherweatherlang.Models.WeatherData
-import com.parungao.weatherweatherlang.Models.WeatherModel
 import com.parungao.weatherweatherlang.R
 import com.parungao.weatherweatherlang.Utilities.InjectorUtils
 import com.parungao.weatherweatherlang.ViewModels.WeatherViewModel
-import kotlinx.android.synthetic.main.city_item.view.*
-import kotlinx.android.synthetic.main.fragment_cities_list.*
 import kotlinx.android.synthetic.main.fragment_weather_details.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
