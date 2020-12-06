@@ -7,25 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.parungao.weatherweatherlang.R
 import com.parungao.weatherweatherlang.Utilities.InjectorUtils
 import com.parungao.weatherweatherlang.ViewModels.WeatherViewModel
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.parungao.weatherweatherlang.Adapters.WeatherAdapter
-import com.parungao.weatherweatherlang.Models.WeatherModel
-import com.parungao.weatherweatherlang.Utilities.GetWeatherServices
-import com.parungao.weatherweatherlang.Utilities.NetworkServiceBuilder
-import com.parungao.weatherweatherlang.ViewModels.WeatherViewModelFactory
 import kotlinx.android.synthetic.main.fragment_cities_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CitiesListFragment : Fragment() {
-//    val w : WeatherViewModelFactory
-//    val x : WeatherViewModel
+    companion object {
+        fun newInstance(): CitiesListFragment {
+            return CitiesListFragment()
+        }
+    }
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -36,9 +31,6 @@ class CitiesListFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button_first.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
         initializeUi()
         initializeObservers()
     }
@@ -54,23 +46,9 @@ class CitiesListFragment : Fragment() {
         viewModel.getWeather().observe(this, Observer { weatherAndCitiesObject ->
             recyclerView.adapter = WeatherAdapter(activity as Context, weatherAndCitiesObject.list)
         })
-        addButton.setOnClickListener{
-            callOpenWeatherData(viewModel)
+        refreshButton.setOnClickListener{
+            viewModel.callOpenWeatherData()
         }
-        callOpenWeatherData(viewModel)
-    }
-    private fun callOpenWeatherData(viewModel : WeatherViewModel){
-        val getWeatherService: GetWeatherServices = NetworkServiceBuilder.buildService(GetWeatherServices::class.java)
-        val requestCall: Call<WeatherModel> =  getWeatherService.getWeatherAndCitiesList()
-        requestCall.enqueue(object : Callback<WeatherModel>{
-            override fun onResponse(
-                call: Call<WeatherModel>,
-                response: Response<WeatherModel>
-            ) {
-                val weatherAndCitiesObject: WeatherModel = response.body()!!
-                viewModel.updateWeather(weatherAndCitiesObject)
-            }
-            override fun onFailure(call: Call<WeatherModel>, t: Throwable) {}
-        })
+        viewModel.callOpenWeatherData()
     }
 }

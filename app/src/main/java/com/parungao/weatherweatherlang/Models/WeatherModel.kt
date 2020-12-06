@@ -1,11 +1,12 @@
 package com.parungao.weatherweatherlang.Models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class WeatherModel(
     val cnt: Int,
     val list: List<WeatherData>
-)
+): Serializable
 
 data class WeatherData(
     val clouds: Clouds,
@@ -18,7 +19,7 @@ data class WeatherData(
     val visibility: Int,
     val weather: List<Weather>,
     val wind: Wind
-)
+): Serializable
 
 data class Wind(
     val deg: Int,
