@@ -49,10 +49,10 @@ class CityDetailsFragment : Fragment() {
             df.roundingMode = RoundingMode.CEILING
             cityTxt.text = weatherAndCitiesObject.name
             (context as MainActivity).actionbar!!.title = weatherAndCitiesObject.name
-            temperatureTxt.text = "${df.format(weatherAndCitiesObject.main.temp-273.14)}°C"
+            temperatureTxt.text = "${df.format(weatherAndCitiesObject.main.temp)}°C"
             df = DecimalFormat("#")
             df.roundingMode = RoundingMode.CEILING
-            highLowTxt.text = "High: ${df.format(weatherAndCitiesObject.main.tempMax-273.14)}°C / Low: ${df.format(weatherAndCitiesObject.main.tempMin-273.14)}°C"
+            highLowTxt.text = "High: ${df.format(weatherAndCitiesObject.main.tempMax)}°C / Low: ${df.format(weatherAndCitiesObject.main.tempMin)}°C"
             conditionTxt.text = weatherAndCitiesObject.weather.first().main
             clicked = if ((context as MainActivity).favoritesList.contains(weatherAndCitiesObject!!.name)){
                 favoritesButton.setImageResource(R.drawable.heart_red)

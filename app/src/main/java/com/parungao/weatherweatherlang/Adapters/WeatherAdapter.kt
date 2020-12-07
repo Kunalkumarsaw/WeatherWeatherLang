@@ -37,7 +37,7 @@ class WeatherAdapter(val context: Context, val list: List<WeatherData>) : Recycl
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun setData(weather: WeatherData?,position : Int){
-            var temperature = (weather!!.main.temp - 273.15)
+            var temperature = (weather!!.main.temp)
             val df = DecimalFormat("#.#")
             df.roundingMode = RoundingMode.CEILING
 
