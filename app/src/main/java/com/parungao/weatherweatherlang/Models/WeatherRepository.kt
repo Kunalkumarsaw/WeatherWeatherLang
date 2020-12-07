@@ -1,6 +1,6 @@
 package com.parungao.weatherweatherlang.Models
 
-class WeatherRepository private constructor(private val weatherDao: FakeWeatherDao) {
+class WeatherRepository(private val weatherDao: FakeWeatherDao) {
     fun updateWeather(weather: WeatherModel){
         weatherDao.updateWeather(weather)
     }
