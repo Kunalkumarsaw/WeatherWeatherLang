@@ -34,7 +34,6 @@ class CitiesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initializeUi()
         initializeObservers()
     }
@@ -43,6 +42,11 @@ class CitiesListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = layoutManager
+
+
+        (context as MainActivity).actionbar!!.title = "Weather Forecast"
+        (context as MainActivity).actionbar!!.setDisplayHomeAsUpEnabled(false)
+
     }
     private fun initializeObservers(){
         val factory = InjectorUtils.provideWeatherViewModelFactory()

@@ -21,7 +21,6 @@ import java.text.DecimalFormat
 
 class WeatherAdapter(val context: Context, val list: List<WeatherData>) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.city_item, parent, false)
         return ViewHolder(view)
@@ -60,7 +59,7 @@ class WeatherAdapter(val context: Context, val list: List<WeatherData>) : Recycl
             itemView.cityTxt.text = "${weather!!.name}"
             itemView.tempTxt.text = "${df.format(temperature)}°C"
             itemView.descriptionTxt.text = "${weather!!.weather.first().main}"
-
         }
     }
+
 }

@@ -3,6 +3,7 @@ package com.parungao.weatherweatherlang.Views
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MotionEventCompat
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     var favoritesList: MutableList<String> = ArrayList()
     lateinit var city : String
+    var actionbar : ActionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +28,14 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.root_layout, CitiesListFragment.newInstance(), "citiesList")
                 .commit()
         }
-    }
 
+        actionbar = supportActionBar
+
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
     fun onCitySelected(weatherData: WeatherData) {
         val detailsFragment =
             CityDetailsFragment.newInstance(weatherData)

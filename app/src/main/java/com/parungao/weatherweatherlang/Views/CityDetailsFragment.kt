@@ -48,6 +48,7 @@ class CityDetailsFragment : Fragment() {
             var df = DecimalFormat("#.#")
             df.roundingMode = RoundingMode.CEILING
             cityTxt.text = weatherAndCitiesObject.name
+            (context as MainActivity).actionbar!!.title = weatherAndCitiesObject.name
             temperatureTxt.text = "${df.format(weatherAndCitiesObject.main.temp-273.14)}°C"
             df = DecimalFormat("#")
             df.roundingMode = RoundingMode.CEILING
@@ -71,6 +72,8 @@ class CityDetailsFragment : Fragment() {
                 }
             }
         })
+
+        (context as MainActivity).actionbar!!.setDisplayHomeAsUpEnabled(true)
         viewModel.callOpenWeatherForCitiesData(weather.id.toString())
 
     }

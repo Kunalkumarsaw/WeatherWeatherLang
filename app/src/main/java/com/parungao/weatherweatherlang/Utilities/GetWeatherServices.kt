@@ -10,12 +10,10 @@ import retrofit2.http.QueryMap
 interface GetWeatherServices {
     @GET("data/2.5/group")
     fun getWeatherAndCitiesList(@QueryMap() map: Map<String, String>): Call<WeatherModel>
-
 }
 
 interface GetWeatherOfCityServices {
     val city : String
-
     @GET("data/2.5/weather")
     fun getWeatherOfCityServicesObject(@QueryMap() map: Map<String, String> ): Call<WeatherData>
 }
