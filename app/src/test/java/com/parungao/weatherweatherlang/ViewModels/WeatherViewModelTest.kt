@@ -10,7 +10,7 @@ import com.parungao.weatherweatherlang.Utilities.NetworkServiceBuilder
 import org.junit.Test
 import retrofit2.Call
 import org.junit.Assert.assertEquals
-
+import org.junit.Assert.assertNotEquals
 class WeatherViewModelTest {
 
     @Before
@@ -28,6 +28,7 @@ class WeatherViewModelTest {
         val requestCall: Call<WeatherModel> =  getWeatherService.getWeatherAndCitiesList(map)
         val result = requestCall.execute().body()
         assertEquals("Found 3 items",3,result!!.cnt)
+        assertNotEquals("Seoul is not the first city in this list","Seoul",result!!.list.first().name)
     }
     @After
     fun tearDown() {
